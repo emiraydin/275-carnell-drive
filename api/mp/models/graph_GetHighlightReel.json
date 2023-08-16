@@ -1,0 +1,42 @@
+{
+  "data" : {
+    "model" : {
+      "id" : "vUb5e71k91Q",
+      "activeHighlightReel" : {
+        "id" : "6fd2p32w2pbxir25nr0s89taa",
+        "label" : "active_reel",
+        "reel" : [ {
+          "overrides" : null,
+          "asset" : {
+            "id" : "RhWgyKr8W1Z",
+            "__typename" : "Photo"
+          },
+          "__typename" : "ReelElement"
+        }, {
+          "overrides" : null,
+          "asset" : {
+            "id" : "8fuT8v7WW3A",
+            "__typename" : "Photo"
+          },
+          "__typename" : "ReelElement"
+        }, {
+          "overrides" : null,
+          "asset" : {
+            "id" : "pVhMT45NeRA",
+            "__typename" : "Photo"
+          },
+          "__typename" : "ReelElement"
+        }, {
+          "overrides" : null,
+          "asset" : {
+            "id" : "TZ93sAphKX3",
+            "__typename" : "Photo"
+          },
+          "__typename" : "ReelElement"
+        } ],
+        "__typename" : "HighlightReel"
+      },
+      "__typename" : "Model"
+    }
+  }
+}
