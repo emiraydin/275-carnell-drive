@@ -1,0 +1,25 @@
+2023-08-17 01:55:54 INFO     Server started up
+2023-08-17 01:57:28 INFO     Server started up
+2023-08-17 01:58:12 INFO     Server started up
+2023-08-17 01:58:19 WARNING  404 error: /api/v1/event may not be downloading everything right
+2023-08-17 01:58:20 WARNING  404 error: /api/v1/event may not be downloading everything right
+2023-08-17 01:58:21 WARNING  404 error: /api/v1/event may not be downloading everything right
+2023-08-17 01:59:03 INFO     Server started up
+2023-08-17 01:59:05 WARNING  404 error: /api/v1/event may not be downloading everything right
+2023-08-17 01:59:06 WARNING  404 error: /api/v1/event may not be downloading everything right
+2023-08-17 01:59:06 WARNING  404 error: /api/v1/event may not be downloading everything right
+2023-08-17 01:59:06 WARNING  404 error: /api/v1/event may not be downloading everything right
+2023-08-17 01:59:07 WARNING  404 error: /api/v1/event may not be downloading everything right
+2023-08-17 01:59:07 WARNING  404 error: /api/v1/event may not be downloading everything right
+2023-08-17 01:59:09 WARNING  404 error: /api/v1/event may not be downloading everything right
+2023-08-17 02:02:33 INFO     Server started up
+2023-08-17 02:02:38 INFO     Handling a post request on /api/mp/models/graph: Error trying to handle a post request of: name 'GRAPH_DATA_REQ' is not defined this should not happen
+2023-08-17 02:02:38 WARNING  404 error: /api/v1/event may not be downloading everything right
+2023-08-17 02:02:38 INFO     Handling a post request on /api/mp/models/graph: Error trying to handle a post request of: name 'GRAPH_DATA_REQ' is not defined this should not happen
+2023-08-17 02:02:38 WARNING  404 error: /api/v1/event may not be downloading everything right
+2023-08-17 02:02:41 INFO     Handling a post request on /api/mp/models/graph: Error trying to handle a post request of: name 'GRAPH_DATA_REQ' is not defined this should not happen
+2023-08-17 02:02:41 WARNING  404 error: /api/v1/event may not be downloading everything right
+2023-08-17 02:05:47 INFO     Server started up
+2023-08-17 02:05:53 INFO     Redirecting /js/showcase.js => /js/showcase-internal.js as using our internal showcase.js file
+2023-08-17 02:05:53 INFO     Handling a post request on /api/mp/models/graph: Error trying to handle a post request of: name 'GRAPH_DATA_REQ' is not defined this should not happen
+2023-08-17 02:05:53 WARNING  404 error: /api/v1/event may not be downloading everything right
