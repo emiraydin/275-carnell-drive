@@ -1,0 +1,206 @@
+{
+  "errors" : [ {
+    "message" : "Error fetching data (path: /model/organization, code: request.unauthorized): Unauthorized",
+    "locations" : [ {
+      "line" : 5,
+      "column" : 5
+    } ],
+    "path" : [ "model", "organization" ],
+    "extensions" : {
+      "code" : "request.unauthorized",
+      "retry" : "false",
+      "httpCode" : "401",
+      "classification" : "DataFetchingException"
+    }
+  }, {
+    "message" : "Error fetching data (path: /model/visibility, code: request.unauthorized): Unauthorized",
+    "locations" : [ {
+      "line" : 6,
+      "column" : 5
+    } ],
+    "path" : [ "model", "visibility" ],
+    "extensions" : {
+      "code" : "request.unauthorized",
+      "retry" : "false",
+      "httpCode" : "401",
+      "classification" : "DataFetchingException"
+    }
+  }, {
+    "message" : "Error fetching data (path: /model/created, code: request.unauthorized): Unauthorized",
+    "locations" : [ {
+      "line" : 8,
+      "column" : 5
+    } ],
+    "path" : [ "model", "created" ],
+    "extensions" : {
+      "code" : "request.unauthorized",
+      "retry" : "false",
+      "httpCode" : "401",
+      "classification" : "DataFetchingException"
+    }
+  }, {
+    "message" : "Error fetching data (path: /model/state, code: request.unauthorized): Unauthorized",
+    "locations" : [ {
+      "line" : 28,
+      "column" : 3
+    } ],
+    "path" : [ "model", "state" ],
+    "extensions" : {
+      "code" : "request.unauthorized",
+      "retry" : "false",
+      "httpCode" : "401",
+      "classification" : "DataFetchingException"
+    }
+  } ],
+  "data" : {
+    "model" : {
+      "id" : "vUb5e71k91Q",
+      "name" : "275 Carnell Dr",
+      "organization" : null,
+      "visibility" : null,
+      "discoverable" : true,
+      "created" : null,
+      "state" : null,
+      "__typename" : "Model",
+      "image" : {
+        "id" : "JmyS9jouwsK",
+        "label" : "05.26.2023_05.53.38",
+        "classification" : null,
+        "category" : "snapshot",
+        "height" : 1707,
+        "width" : 3034,
+        "created" : "2023-05-26T12:53:38Z",
+        "modified" : "2023-05-26T12:53:38Z",
+        "status" : "available",
+        "filename" : null,
+        "format" : "image",
+        "url" : "http://127.0.0.1:8080/apifs/models/vUb5e71k91Q/images/JmyS9jouwsK/05.26.2023_05.53.38.jpg?t=2-4934991e08093e2a1376124ff13e1f2b8ed9e4e2-1692224853-1",
+        "resolutions" : [ "icon", "thumbnail", "preview", "web", "presentation", "original" ],
+        "type" : "photo2D",
+        "origin" : "user",
+        "validUntil":"2099-01-01T22:27:33Z",
+        "thumbnailUrl" : "http://127.0.0.1:8080/apifs/models/vUb5e71k91Q/images/JmyS9jouwsK/05.26.2023_05.53.38.jpg?t=2-4934991e08093e2a1376124ff13e1f2b8ed9e4e2-1692224853-1&width=200&height=140&fit=crop&disable=upscale",
+        "presentationUrl" : "http://127.0.0.1:8080/apifs/models/vUb5e71k91Q/images/JmyS9jouwsK/05.26.2023_05.53.38.jpg?t=2-4934991e08093e2a1376124ff13e1f2b8ed9e4e2-1692224853-1&width=1920&height=1080&fit=crop&disable=upscale",
+        "snapshotLocation" : {
+          "viewMode" : "panorama",
+          "position" : {
+            "x" : -8.543244361877441,
+            "y" : -0.20653603971004486,
+            "z" : 1.513718605041504,
+            "__typename" : "Point"
+          },
+          "rotation" : {
+            "x" : 0.6398051968813219,
+            "y" : -0.3400614194761763,
+            "z" : 0.32346782092634796,
+            "w" : -0.60858533488258,
+            "__typename" : "Quaternion"
+          },
+          "zoom" : 1.0,
+          "floorVisibility" : [ {
+            "id" : "pd0i1c4yq9w0y2zsb07ed23sb",
+            "meshId" : 1,
+            "sequence" : 1,
+            "__typename" : "ModelFloor"
+          } ],
+          "anchor" : {
+            "id" : "xkp9tni52zdr0805r62ihwu7b",
+            "pano" : {
+              "id" : "xkp9tni52zdr0805r62ihwu7b",
+              "placement" : "auto",
+              "__typename" : "PanoramicImageLocation"
+            },
+            "__typename" : "AnchorLocation"
+          },
+          "__typename" : "SnapshotLocation"
+        },
+        "__typename" : "Photo"
+      },
+      "publication" : {
+        "address" : "BC, CA",
+        "published" : true,
+        "lastPublished" : null,
+        "presentedBy" : "Grant Scholefield & Luc Cardinal Photographer",
+        "summary" : "",
+        "externalUrl" : "https://go4virtual.com/",
+        "contact" : {
+          "name" : "Luc Cardinal",
+          "email" : "photocardinal@icloud.com",
+          "phoneNumber" : "(250) 686-8589",
+          "__typename" : "ModelContact"
+        },
+        "__typename" : "ModelPublicationDetails"
+      },
+      "options" : {
+        "backgroundColor" : "black",
+        "dollhouseEnabled" : true,
+        "dollhouseLabelsEnabled" : true,
+        "floorSelectEnabled" : true,
+        "floorplanEnabled" : true,
+        "highlightReelEnabled" : true,
+        "labelsEnabled" : true,
+        "measurements" : "measureAndView",
+        "socialSharingEnabled" : true,
+        "spaceSearchEnabled" : true,
+        "tourButtonsEnabled" : true,
+        "tourDollhousePanSpeed" : 2,
+        "tourFastTransitionsEnabled" : true,
+        "tourPanAngle" : 35,
+        "tourPanDirection" : "auto",
+        "tourPanSpeed" : 10,
+        "tourTransitionSpeed" : 1250,
+        "tourTransitionTime" : 600,
+        "tourZoomDuration" : 3500,
+        "unitType" : "imperial",
+        "vrEnabled" : true,
+        "__typename" : "ModelOptions"
+      },
+      "assets" : {
+        "meshes" : [ {
+          "id" : "meshes/37uicp85wqk7tdardrideyd9c",
+          "status" : "available",
+          "filename" : "1b4cad89f69849498ea1bc969be2d5f3_50k.dam",
+          "format" : "dam",
+          "resolution" : "50k",
+          "url" : "http://127.0.0.1:8080/models/636d1e3238894a199dffabb5fde81866/assets/1b4cad89f69849498ea1bc969be2d5f3_50k.dam?t=2-a7773ff1e6738547dd6e55912b54f11b1738d1b2-1692224853-1",
+          "validUntil":"2099-01-01T22:27:33Z",
+          "__typename" : "Mesh"
+        } ],
+        "textures" : [ {
+          "id" : "50k-high",
+          "status" : "available",
+          "format" : "jpg",
+          "resolution" : "50k",
+          "quality" : "high",
+          "urlTemplate" : "http://127.0.0.1:8080/models/636d1e3238894a199dffabb5fde81866/assets/~/1b4cad89f69849498ea1bc969be2d5f3_50k_texture_jpg_high/1b4cad89f69849498ea1bc969be2d5f3_50k_<texture>.jpg?t=2-82e9e18d5e01881038d5cd18985164a875dc1e25-1692224853-0&k=models%2F636d1e3238894a199dffabb5fde81866%2Fassets",
+          "validUntil":"2099-01-01T22:27:33Z",
+          "__typename" : "Texture"
+        }, {
+          "id" : "50k-low",
+          "status" : "available",
+          "format" : "jpg",
+          "resolution" : "50k",
+          "quality" : "low",
+          "urlTemplate" : "http://127.0.0.1:8080/models/636d1e3238894a199dffabb5fde81866/assets/~/1b4cad89f69849498ea1bc969be2d5f3_50k_texture_jpg_low/1b4cad89f69849498ea1bc969be2d5f3_50k_<texture>.jpg?t=2-82e9e18d5e01881038d5cd18985164a875dc1e25-1692224853-0&k=models%2F636d1e3238894a199dffabb5fde81866%2Fassets",
+          "validUntil":"2099-01-01T22:27:33Z",
+          "__typename" : "Texture"
+        } ],
+        "tilesets" : [ {
+          "status" : "available",
+          "tilesetVersion" : "1.2.0",
+          "url" : "http://127.0.0.1:8080/models/636d1e3238894a199dffabb5fde81866/assets/mesh_tiles/~/tileset.json?t=2-f3cc87378f0554f38f0f2c7ade33f61d778af658-1692224853-1&k=models%2F636d1e3238894a199dffabb5fde81866%2Fassets%2Fmesh_tiles",
+          "urlTemplate" : "http://127.0.0.1:8080/models/636d1e3238894a199dffabb5fde81866/assets/mesh_tiles/~/<file>?t=2-f3cc87378f0554f38f0f2c7ade33f61d778af658-1692224853-1&k=models%2F636d1e3238894a199dffabb5fde81866%2Fassets%2Fmesh_tiles",
+          "validUntil":"2099-01-01T22:27:33Z",
+          "tilesetDepth" : 3,
+          "tilesetPreset" : "basic2",
+          "__typename" : "Tileset"
+        } ],
+        "__typename" : "ModelAssets"
+      },
+      "lod" : {
+        "options" : [ "lod2" ],
+        "__typename" : "PolicyOptions"
+      }
+    }
+  }
+}

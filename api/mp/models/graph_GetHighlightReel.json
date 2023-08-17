@@ -5,12 +5,15 @@
       "activeHighlightReel" : {
         "id" : "6fd2p32w2pbxir25nr0s89taa",
         "label" : "active_reel",
+        "mode" : "reel",
         "reel" : [ {
           "overrides" : null,
           "asset" : {
             "id" : "RhWgyKr8W1Z",
             "__typename" : "Photo"
           },
+          "title" : null,
+          "description" : null,
           "__typename" : "ReelElement"
         }, {
           "overrides" : null,
@@ -18,6 +21,8 @@
             "id" : "8fuT8v7WW3A",
             "__typename" : "Photo"
           },
+          "title" : null,
+          "description" : null,
           "__typename" : "ReelElement"
         }, {
           "overrides" : null,
@@ -25,6 +30,8 @@
             "id" : "pVhMT45NeRA",
             "__typename" : "Photo"
           },
+          "title" : null,
+          "description" : null,
           "__typename" : "ReelElement"
         }, {
           "overrides" : null,
@@ -32,6 +39,8 @@
             "id" : "TZ93sAphKX3",
             "__typename" : "Photo"
           },
+          "title" : null,
+          "description" : null,
           "__typename" : "ReelElement"
         } ],
         "__typename" : "HighlightReel"

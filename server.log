@@ -1,0 +1,26 @@
+2023-08-16 20:49:14 INFO     Server started up
+2023-08-16 20:49:19 INFO     Redirecting /js/showcase.js => /js/showcase-internal.js as using our internal showcase.js file
+2023-08-16 20:49:19 INFO     Handling a post request on /api/mp/models/graph: graph of operationName: GetModelPolicies we are handling internally
+2023-08-16 20:49:19 INFO     Handling a post request on /api/mp/models/graph: graph of operationName: GetModelViewPrefetch we are handling internally
+2023-08-16 20:49:19 INFO     Handling a post request on /api/mp/models/graph: graph of operationName: GetSnapshots we are handling internally
+2023-08-16 20:49:20 WARNING  404 error: /models/636d1e3238894a199dffabb5fde81866/assets/mesh_tiles/~/3.json?t=2-2b1c7db3adc071b10eebbb09fe1fe93a70a359cb-1692293597-1&k=models%2F636d1e3238894a199dffabb5fde81866%2Fassets%2Fmesh_tiles may not be downloading everything right
+2023-08-16 20:49:34 INFO     Handling a post request on /api/mp/models/graph: graph of operationName: GetModelPolicies we are handling internally
+2023-08-16 20:49:34 INFO     Handling a post request on /api/mp/models/graph: graph of operationName: GetModelViewPrefetch we are handling internally
+2023-08-16 20:49:34 INFO     Handling a post request on /api/mp/models/graph: graph of operationName: GetSnapshots we are handling internally
+2023-08-16 20:49:34 WARNING  404 error: /models/636d1e3238894a199dffabb5fde81866/assets/mesh_tiles/~/3.json?t=2-2b1c7db3adc071b10eebbb09fe1fe93a70a359cb-1692293597-1&k=models%2F636d1e3238894a199dffabb5fde81866%2Fassets%2Fmesh_tiles may not be downloading everything right
+2023-08-16 20:49:35 INFO     Handling a post request on /api/mp/models/graph: graph of operationName: GetModelPolicies we are handling internally
+2023-08-16 20:49:35 INFO     Handling a post request on /api/mp/models/graph: graph of operationName: GetModelViewPrefetch we are handling internally
+2023-08-16 20:49:35 INFO     Handling a post request on /api/mp/models/graph: graph of operationName: GetSnapshots we are handling internally
+2023-08-16 20:49:35 WARNING  404 error: /models/636d1e3238894a199dffabb5fde81866/assets/mesh_tiles/~/3.json?t=2-2b1c7db3adc071b10eebbb09fe1fe93a70a359cb-1692293597-1&k=models%2F636d1e3238894a199dffabb5fde81866%2Fassets%2Fmesh_tiles may not be downloading everything right
+2023-08-16 20:49:51 INFO     Handling a post request on /api/mp/models/graph: graph of operationName: GetModelPolicies we are handling internally
+2023-08-16 20:49:51 INFO     Handling a post request on /api/mp/models/graph: graph of operationName: GetModelViewPrefetch we are handling internally
+2023-08-16 20:49:51 INFO     Handling a post request on /api/mp/models/graph: graph of operationName: GetSnapshots we are handling internally
+2023-08-16 20:49:51 WARNING  404 error: /models/636d1e3238894a199dffabb5fde81866/assets/mesh_tiles/~/3.json?t=2-2b1c7db3adc071b10eebbb09fe1fe93a70a359cb-1692293597-1&k=models%2F636d1e3238894a199dffabb5fde81866%2Fassets%2Fmesh_tiles may not be downloading everything right
+2023-08-16 20:49:52 INFO     Handling a post request on /api/mp/models/graph: graph of operationName: GetModelPolicies we are handling internally
+2023-08-16 20:49:52 INFO     Handling a post request on /api/mp/models/graph: graph of operationName: GetModelViewPrefetch we are handling internally
+2023-08-16 20:49:52 INFO     Handling a post request on /api/mp/models/graph: graph of operationName: GetSnapshots we are handling internally
+2023-08-16 20:49:52 WARNING  404 error: /models/636d1e3238894a199dffabb5fde81866/assets/mesh_tiles/~/3.json?t=2-2b1c7db3adc071b10eebbb09fe1fe93a70a359cb-1692293597-1&k=models%2F636d1e3238894a199dffabb5fde81866%2Fassets%2Fmesh_tiles may not be downloading everything right
+2023-08-16 20:49:52 INFO     Handling a post request on /api/mp/models/graph: graph of operationName: GetModelPolicies we are handling internally
+2023-08-16 20:49:52 INFO     Handling a post request on /api/mp/models/graph: graph of operationName: GetModelViewPrefetch we are handling internally
+2023-08-16 20:49:52 INFO     Handling a post request on /api/mp/models/graph: graph of operationName: GetSnapshots we are handling internally
+2023-08-16 20:49:52 WARNING  404 error: /models/636d1e3238894a199dffabb5fde81866/assets/mesh_tiles/~/3.json?t=2-2b1c7db3adc071b10eebbb09fe1fe93a70a359cb-1692293597-1&k=models%2F636d1e3238894a199dffabb5fde81866%2Fassets%2Fmesh_tiles may not be downloading everything right
