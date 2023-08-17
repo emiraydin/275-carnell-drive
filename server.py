@@ -94,7 +94,16 @@ class OurSimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
         return res
 
 
-os.chdir("public")
+GRAPH_DATA_REQ = {}
+
+def openDirReadGraphReqs(path, pageId):
+    for root, dirs, filenames in os.walk(path):
+        for file in filenames:
+            with open(os.path.join(root, file), "r", encoding="UTF-8") as f:
+                GRAPH_DATA_REQ[file.replace(".json", "")] = f.read().replace("[MATTERPORT_MODEL_ID]",pageId)
+
+os.chdir("vUb5e71k91Q")
+
 try:
     logging.basicConfig(filename='server.log', encoding='utf-8', level=logging.DEBUG,  format='%(asctime)s %(levelname)-8s %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 except ValueError:
