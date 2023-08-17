@@ -76,13 +76,13 @@
         "status" : "available",
         "filename" : null,
         "format" : "image",
-        "url" : "http://127.0.0.1:8080/apifs/models/vUb5e71k91Q/images/JmyS9jouwsK/05.26.2023_05.53.38.jpg?t=2-b6c8add0bbeddc87f64e78eb10ae274f859c6c69-1692224855-1",
+        "url" : "http://127.0.0.1:8080/apifs/models/vUb5e71k91Q/images/JmyS9jouwsK/05.26.2023_05.53.38.jpg?t=2-e5ecee7a5c157be8959d74611a6d9c74a36f3c1d-1692248630-1",
         "resolutions" : [ "icon", "thumbnail", "preview", "web", "presentation", "original" ],
         "type" : "photo2D",
         "origin" : "user",
-        "validUntil":"2099-01-01T22:27:35Z",
-        "thumbnailUrl" : "http://127.0.0.1:8080/apifs/models/vUb5e71k91Q/images/JmyS9jouwsK/05.26.2023_05.53.38.jpg?t=2-b6c8add0bbeddc87f64e78eb10ae274f859c6c69-1692224855-1&width=200&height=140&fit=crop&disable=upscale",
-        "presentationUrl" : "http://127.0.0.1:8080/apifs/models/vUb5e71k91Q/images/JmyS9jouwsK/05.26.2023_05.53.38.jpg?t=2-b6c8add0bbeddc87f64e78eb10ae274f859c6c69-1692224855-1&width=1920&height=1080&fit=crop&disable=upscale",
+        "validUntil":"2099-01-01T05:03:50Z",
+        "thumbnailUrl" : "http://127.0.0.1:8080/apifs/models/vUb5e71k91Q/images/JmyS9jouwsK/05.26.2023_05.53.38.jpg?t=2-e5ecee7a5c157be8959d74611a6d9c74a36f3c1d-1692248630-1&width=200&height=140&fit=crop&disable=upscale",
+        "presentationUrl" : "http://127.0.0.1:8080/apifs/models/vUb5e71k91Q/images/JmyS9jouwsK/05.26.2023_05.53.38.jpg?t=2-e5ecee7a5c157be8959d74611a6d9c74a36f3c1d-1692248630-1&width=1920&height=1080&fit=crop&disable=upscale",
         "snapshotLocation" : {
           "viewMode" : "panorama",
           "position" : {
