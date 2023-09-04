@@ -1,13 +1,19 @@
-import requests
+#!/usr/bin/env python3
 import json
+import urllib.request
 from urllib.parse import urlparse
 import os
 import logging
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
-
-# Weird hack
+# Define variables
 SHOWCASE_INTERNAL_NAME = "showcase-internal.js"
+SERVER_PROTOCOL = "http"
+SERVER_HOST = "127.0.0.1"
+SERVER_PORT = 8080
+SERVER_FULL_URL = "{}://{}:{}".format(SERVER_PROTOCOL, SERVER_HOST, SERVER_PORT)
+MATTERPORT_DIR = "assets"
+
 
 class OurSimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
     def send_error(self, code, message=None):
@@ -93,25 +99,36 @@ class OurSimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
             return "text/html; charset=UTF-8"
         return res
 
-
 GRAPH_DATA_REQ = {}
 
 def openDirReadGraphReqs(path, pageId):
     for root, dirs, filenames in os.walk(path):
         for file in filenames:
             with open(os.path.join(root, file), "r", encoding="UTF-8") as f:
-                GRAPH_DATA_REQ[file.replace(".json", "")] = f.read().replace("[MATTERPORT_MODEL_ID]",pageId)
-
-os.chdir("vUb5e71k91Q")
-
-try:
-    logging.basicConfig(filename='server.log', encoding='utf-8', level=logging.DEBUG,  format='%(asctime)s %(levelname)-8s %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-except ValueError:
-    logging.basicConfig(filename='server.log', level=logging.DEBUG,  format='%(asctime)s %(levelname)-8s %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-logging.info("Server started up")
+                GRAPH_DATA_REQ[file.replace(".json", "")] = f.read().replace("[MATTERPORT_MODEL_ID]",pageId)             
 
 
-print("View in browser: http://127.0.0.1:8080")
-httpd = HTTPServer(
-    ('127.0.0.1', 8080), OurSimpleHTTPRequestHandler)
-httpd.serve_forever()
+def getUrlOpener(use_proxy):
+    if (use_proxy):
+        proxy = urllib.request.ProxyHandler({'http': use_proxy, 'https': use_proxy})
+        opener = urllib.request.build_opener(proxy)
+    else:
+        opener = urllib.request.build_opener()
+    opener.addheaders = [('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'),('x-matterport-application-name','showcase')]
+    return opener
+
+if __name__ == "__main__":
+    OUR_OPENER = getUrlOpener(False)
+    urllib.request.install_opener(OUR_OPENER)
+    openDirReadGraphReqs("graph_posts", MATTERPORT_DIR)
+    os.chdir(MATTERPORT_DIR)
+    try:
+        logging.basicConfig(filename='server.log', encoding='utf-8', level=logging.DEBUG,  format='%(asctime)s %(levelname)-8s %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+    except ValueError:
+        logging.basicConfig(filename='server.log', level=logging.DEBUG,  format='%(asctime)s %(levelname)-8s %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+    logging.info("Server started up")
+
+    print("View in browser: {}".format(SERVER_FULL_URL))
+    httpd = HTTPServer(
+        (SERVER_HOST, SERVER_PORT), OurSimpleHTTPRequestHandler)
+    httpd.serve_forever()
