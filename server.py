@@ -107,19 +107,7 @@ def openDirReadGraphReqs(path, pageId):
             with open(os.path.join(root, file), "r", encoding="UTF-8") as f:
                 GRAPH_DATA_REQ[file.replace(".json", "")] = f.read().replace("[MATTERPORT_MODEL_ID]",pageId)             
 
-
-def getUrlOpener(use_proxy):
-    if (use_proxy):
-        proxy = urllib.request.ProxyHandler({'http': use_proxy, 'https': use_proxy})
-        opener = urllib.request.build_opener(proxy)
-    else:
-        opener = urllib.request.build_opener()
-    opener.addheaders = [('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'),('x-matterport-application-name','showcase')]
-    return opener
-
 if __name__ == "__main__":
-    OUR_OPENER = getUrlOpener(False)
-    urllib.request.install_opener(OUR_OPENER)
     openDirReadGraphReqs("graph_posts", MATTERPORT_DIR)
     os.chdir(MATTERPORT_DIR)
     try:
