@@ -1,0 +1,5 @@
+.DS_Store
+*.log
+assets/*.log
+.wrangler/
+node_modules/
