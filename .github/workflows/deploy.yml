@@ -1,0 +1,37 @@
+name: Deploy Tour & Worker to Cloudflare
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to Cloudflare
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Deploy Cloudflare Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+
+      - name: Sync Updated Code Files to Cloudflare R2
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: |
+            r2 object put 275-carnell-drive/index.html --file assets/index.html --content-type "text/html; charset=utf-8"
+            r2 object put 275-carnell-drive/assets/index.html --file assets/index.html --content-type "text/html; charset=utf-8"
+            r2 object put 275-carnell-drive/assets/js/showcase-internal.js --file assets/js/showcase-internal.js --content-type "application/javascript; charset=utf-8"
+            r2 object put 275-carnell-drive/js/showcase-internal.js --file assets/js/showcase-internal.js --content-type "application/javascript; charset=utf-8"

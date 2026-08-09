@@ -1,6 +1,6 @@
 # 275 Carnell Drive — Self-Hosted Matterport 3D Tour
 
-Self-hosted Matterport 3D tour for **275 Carnell Drive** (model ID `vUb5e71k91Q`), served from Cloudflare Workers + R2.
+Self-hosted Matterport 3D tour for **275 Carnell Drive** (model ID `vUb5e71k91Q`), served globally using Cloudflare Workers + Cloudflare R2.
 
 | | URL |
 |---|---|
@@ -10,7 +10,7 @@ Self-hosted Matterport 3D tour for **275 Carnell Drive** (model ID `vUb5e71k91Q`
 
 ---
 
-## Architecture
+## System Architecture
 
 ```
 Browser  →  Cloudflare Worker (worker.js)  →  R2 Bucket (275-carnell-drive)
@@ -22,213 +22,161 @@ Browser  →  Cloudflare Worker (worker.js)  →  R2 Bucket (275-carnell-drive)
         - 127.0.0.1:8080              →  self
 ```
 
-**Key files:**
-- `worker.js` — Cloudflare Worker that serves assets from R2 with dynamic URL rewriting
-- `dev-server.py` — Python dev server for local testing (mirrors worker.js logic)
-- `wrangler.toml` — Cloudflare deployment config
-- `assets/` — All Matterport assets (JS, HTML, CSS, 3D meshes, textures, panoramic tiles, API responses)
+**Core Components:**
+- **Cloudflare Worker (`worker.js`)**: Serverless function at Cloudflare edge nodes handling CORS, request routing, header injection, and URL rewriting.
+- **Cloudflare R2 Bucket (`275-carnell-drive`)**: Object storage containing the full static site assets (~500 MB of 3D mesh tiles, skybox images, textures, JS bundles, and JSON metadata).
+- **GitHub Actions (`.github/workflows/deploy.yml`)**: CI/CD pipeline automatically deploying worker code & updated static assets to Cloudflare on every `git push origin main`.
 
 ---
 
-## Prerequisites
+## Initial Setup From Scratch
 
-- [Node.js](https://nodejs.org/) (v18+)
+Follow these step-by-step instructions to set up and deploy this project from scratch:
+
+### 1. Prerequisites
+
+- [Node.js](https://nodejs.org/) (v22 LTS)
 - [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/) (`npm install -g wrangler`)
-- A Cloudflare account with R2 enabled
-- Python 3 (for local dev server)
+- A [Cloudflare](https://dash.cloudflare.com/) account with R2 enabled
+- Git and GitHub account
+
+### 2. Clone the Repository
+
+```bash
+git clone https://github.com/emiraydin/275-carnell-drive.git
+cd 275-carnell-drive
+```
+
+### 3. Cloudflare Authentication & R2 Creation
+
+Log in to Wrangler on your local machine:
+
+```bash
+npx wrangler login
+```
+
+Create the R2 bucket for the project:
+
+```bash
+npx wrangler r2 bucket create 275-carnell-drive
+```
+
+### 4. Populate R2 with 3D Assets & Model Data
+
+Upload the initial asset directory to R2. For initial setup (large ~500 MB upload), upload key directories recursively:
+
+```bash
+# Upload JS engine files
+for f in assets/js/*.js; do
+  npx wrangler r2 object put "275-carnell-drive/assets/js/$(basename $f)" --file "$f" --content-type "application/javascript; charset=utf-8" --remote
+  npx wrangler r2 object put "275-carnell-drive/js/$(basename $f)" --file "$f" --content-type "application/javascript; charset=utf-8" --remote
+done
+
+# Upload HTML entry point
+npx wrangler r2 object put 275-carnell-drive/index.html --file assets/index.html --content-type "text/html; charset=utf-8" --remote
+npx wrangler r2 object put 275-carnell-drive/assets/index.html --file assets/index.html --content-type "text/html; charset=utf-8" --remote
+
+# Upload WebGL vendors (Draco/Basis decoders)
+npx wrangler r2 object put 275-carnell-drive/webgl-vendors/three/0.151.3/libs/basis/basis_transcoder.js --file assets/webgl-vendors/three/0.151.3/libs/basis/basis_transcoder.js --content-type "application/javascript" --remote
+npx wrangler r2 object put 275-carnell-drive/webgl-vendors/three/0.151.3/libs/basis/basis_transcoder.wasm --file assets/webgl-vendors/three/0.151.3/libs/basis/basis_transcoder.wasm --content-type "application/wasm" --remote
+npx wrangler r2 object put 275-carnell-drive/webgl-vendors/three/0.151.3/libs/draco/gltf/draco_wasm_wrapper.js --file assets/webgl-vendors/three/0.151.3/libs/draco/gltf/draco_wasm_wrapper.js --content-type "application/javascript" --remote
+npx wrangler r2 object put 275-carnell-drive/webgl-vendors/three/0.151.3/libs/draco/gltf/draco_decoder.wasm --file assets/webgl-vendors/three/0.151.3/libs/draco/gltf/draco_decoder.wasm --content-type "application/wasm" --remote
+```
+
+### 5. Configure GitHub Repository Secrets
+
+To enable automated deployments via GitHub Actions, add these two secrets in your GitHub repository (**Settings → Secrets and variables → Actions → New repository secret**):
+
+1. **`CLOUDFLARE_API_TOKEN`**:
+   - Go to [Cloudflare API Tokens](https://dash.cloudflare.com/profile/api-tokens).
+   - Create a token with **Edit Cloudflare Workers** and **R2 Storage Write** permissions.
+2. **`CLOUDFLARE_ACCOUNT_ID`**:
+   - Found in your Cloudflare Dashboard URL or right sidebar on the Workers & Pages page.
+
+---
+
+## Deployment Workflow
+
+### Automatic Deployment (Recommended)
+
+Deployment is **100% automated via GitHub Actions**. You do not need to run manual deploy commands.
+
+Simply push your changes to `main`:
+
+```bash
+git add -A
+git commit -m "Update site feature"
+git push origin main
+```
+
+The GitHub Action workflow will automatically:
+1. Validate Node 22 environment & checkout code
+2. Deploy the updated `worker.js` script to Cloudflare Worker
+3. Sync updated `index.html` and `showcase-internal.js` code files to R2 in **~10 seconds**
+
+### Manual Deployment (CLI Fallback)
+
+If you ever need to manually deploy from your local terminal:
+
+```bash
+# Deploy worker script
+npx wrangler deploy
+
+# Upload updated code files to R2
+npx wrangler r2 object put 275-carnell-drive/index.html --file assets/index.html --content-type "text/html; charset=utf-8" --remote
+npx wrangler r2 object put 275-carnell-drive/assets/index.html --file assets/index.html --content-type "text/html; charset=utf-8" --remote
+npx wrangler r2 object put 275-carnell-drive/assets/js/showcase-internal.js --file assets/js/showcase-internal.js --content-type "application/javascript; charset=utf-8" --remote
+```
 
 ---
 
 ## Local Development
 
+For instant local testing without deploying:
+
 ```bash
-# Start the local dev server on http://127.0.0.1:8080
+# Start local Python dev server (runs on http://127.0.0.1:8080)
 python3 dev-server.py
 
 # Open in browser
 open "http://127.0.0.1:8080/?m=vUb5e71k91Q"
 ```
 
-The dev server (`dev-server.py`) handles:
-- Serving all assets from the `assets/` directory
-- GraphQL POST request routing (`/api/mp/models/graph`)
-- Tile folder UUID hyphen stripping (disk uses unhyphenated UUIDs)
-- CORS headers
-- Public access token endpoint
+---
+
+## Engine Patches & Fixes
+
+The static Matterport Showcase JS engine was patched to operate self-hosted without contacting `my.matterport.com`:
+
+| Patch / Fix | Description & Rationale |
+|:---|:---|
+| **URL Rewriting (`worker.js`)** | Rewrites CDN URLs (`cdn-*.matterport.com`, `static.matterport.com`) to origin to prevent CORS blocking. |
+| **Location-Specific Links (`ss`, `sr`)** | Patched `getStartingPose()` in `showcase-internal.js` to lazy-evaluate starting sweep parameters when `sweepData` is ready, preserving custom deep links (e.g. `?m=vUb5e71k91Q&sr=-1.91,1&ss=40`). |
+| **Sweep Activation Tagging** | Added `"showcase"` and `"vr"` tags to sweeps so all 66 camera panoramas are enabled and navigation works seamlessly. |
+| **Floor Height Null Safety** | Patched `getClosestFloorAtHeight` in `showcase-internal.js` to prevent renderer crashes on boundary transitions. |
+| **GraphQL State Override** | Overrode model publication state to `"active"` to bypass registration checks. |
 
 ---
 
-## Deploying to Cloudflare
-
-### 1. Authenticate with Cloudflare
-
-```bash
-npx wrangler login
-```
-
-### 2. Create the R2 Bucket (first time only)
-
-```bash
-npx wrangler r2 bucket create 275-carnell-drive
-```
-
-### 3. Upload All Assets to R2
-
-The assets must be uploaded to the remote R2 bucket. Use the bulk upload script:
-
-```bash
-# Upload entire assets directory to R2
-# This uses rclone or a loop — wrangler doesn't have a bulk upload command,
-# so we upload key directories individually:
-
-# Upload all files recursively (may take a while — ~35,000 files)
-find assets -type f | while read f; do
-  key="${f#assets/}"
-  npx wrangler r2 object put "275-carnell-drive/${key}" --file "${f}" --remote
-done
-```
-
-**Or upload by category** (faster for incremental updates):
-
-```bash
-# JS files (critical — includes patched showcase engine)
-for f in assets/js/*.js; do
-  npx wrangler r2 object put "275-carnell-drive/js/$(basename $f)" \
-    --file "$f" --content-type "application/javascript" --remote
-done
-
-# WebGL vendor files (Draco decoder + Basis transcoder)
-npx wrangler r2 object put 275-carnell-drive/webgl-vendors/three/0.151.3/libs/basis/basis_transcoder.js \
-  --file assets/webgl-vendors/three/0.151.3/libs/basis/basis_transcoder.js \
-  --content-type "application/javascript" --remote
-
-npx wrangler r2 object put 275-carnell-drive/webgl-vendors/three/0.151.3/libs/basis/basis_transcoder.wasm \
-  --file assets/webgl-vendors/three/0.151.3/libs/basis/basis_transcoder.wasm \
-  --content-type "application/wasm" --remote
-
-npx wrangler r2 object put 275-carnell-drive/webgl-vendors/three/0.151.3/libs/draco/gltf/draco_wasm_wrapper.js \
-  --file assets/webgl-vendors/three/0.151.3/libs/draco/gltf/draco_wasm_wrapper.js \
-  --content-type "application/javascript" --remote
-
-npx wrangler r2 object put 275-carnell-drive/webgl-vendors/three/0.151.3/libs/draco/gltf/draco_decoder.wasm \
-  --file assets/webgl-vendors/three/0.151.3/libs/draco/gltf/draco_decoder.wasm \
-  --content-type "application/wasm" --remote
-
-# GraphQL API responses
-for f in assets/api/mp/models/graph_*.json; do
-  npx wrangler r2 object put "275-carnell-drive/api/mp/models/$(basename $f)" \
-    --file "$f" --content-type "application/json" --remote
-done
-
-# HTML
-npx wrangler r2 object put 275-carnell-drive/index.html \
-  --file assets/index.html --content-type "text/html" --remote
-```
-
-### 4. Deploy the Worker
-
-```bash
-npx wrangler deploy
-```
-
-This deploys to:
-- `https://carnell-drive-3d.emiraydin.workers.dev`
-- `https://275.eaweb.fyi` (custom domain, configured in `wrangler.toml`)
-
-### 5. Update Custom Domain (optional)
-
-To change the custom domain, edit `wrangler.toml`:
-
-```toml
-routes = [
-  { pattern = "your-subdomain.yourdomain.com", custom_domain = true }
-]
-```
-
-Then run `npx wrangler deploy` again. Cloudflare will automatically provision DNS and SSL.
-
----
-
-## What Was Patched (and Why)
-
-The Matterport Showcase JS engine expects to run on `my.matterport.com` with live API access. To make it work self-hosted, the following patches were applied:
-
-### Worker-Level Fixes (`worker.js`)
-| Fix | Why |
-|-----|-----|
-| URL rewriting (`cdn-*.matterport.com`, `static.matterport.com` → self) | All asset URLs in JS/JSON point to Matterport CDNs which block CORS from third-party origins |
-| GraphQL POST handler (`/api/mp/models/graph`) | Showcase fetches model data via GraphQL; we serve cached JSON responses |
-| Tile UUID hyphen stripping | On-disk tile folders use unhyphenated UUIDs but the JS requests hyphenated ones |
-| `/public-access` token endpoint | Showcase expects a token endpoint; we return a dummy token |
-| API fallback (200 OK for missing `/api/` routes) | Prevents errors from analytics/tracking endpoints |
-
-### JS-Level Fixes
-| File | Fix | Why |
-|------|-----|-----|
-| `showcase-internal.js` | `a.enabled = !0` override | Sweeps were disabled because `tags` didn't include `"showcase"` |
-| `showcase-internal.js` | `getClosestFloorAtHeight` null check | Returned `undefined` causing `TypeError`, triggering "Oops, model not available" |
-| `showcase-internal.js` | `setError`/`showError` suppression | Non-critical errors (analytics, missing endpoints) were killing the renderer |
-| `65.js` | `activateSweep` fallback | `TiledPanoRenderer` threw when sweep ID wasn't in its map |
-| `321.js` | Default sweep ID in `doStandardStart` | Camera fly-in needed a valid starting sweep ID |
-
-### Data Fixes
-| File | Fix |
-|------|-----|
-| `sweeps` | Added `tags: ["showcase", "vr"]` and dual camelCase/snake_case property mappings for all 66 sweeps |
-| `graph_*.json` | Set `state` to `"active"` (was `"purchased"` or `null`) |
-
----
-
-## Troubleshooting
-
-### Black screen after loading spinner
-The WebGL vendor files (Draco/Basis) are missing or CORS-blocked. Make sure these 4 files are uploaded to R2:
-- `webgl-vendors/three/0.151.3/libs/basis/basis_transcoder.js`
-- `webgl-vendors/three/0.151.3/libs/basis/basis_transcoder.wasm`
-- `webgl-vendors/three/0.151.3/libs/draco/gltf/draco_wasm_wrapper.js`
-- `webgl-vendors/three/0.151.3/libs/draco/gltf/draco_decoder.wasm`
-
-### "Oops, model not available"
-Usually means a JS error crashed the renderer. Check browser console. Common causes:
-- `updateSpatialSortMap` floor height crash (fixed in `showcase-internal.js`)
-- Sweep data missing `tags` (fixed in `sweeps` file)
-- Model state not `"active"` (fixed in GraphQL JSON responses)
-
-### 404 errors on tile images
-The tile folder UUIDs on disk don't have hyphens but the JS requests them with hyphens. The worker/dev-server handles this automatically via hyphen stripping. If you re-download the model, make sure `worker.js` and `dev-server.py` have the hyphen-stripping logic.
-
-### Custom domain not resolving
-After adding a custom domain in `wrangler.toml` and deploying, it can take a few minutes for Cloudflare to provision DNS. The domain must be on a Cloudflare-managed zone.
-
----
-
-## File Structure
+## File Structure Overview
 
 ```
 275-carnell-drive/
-├── worker.js              # Cloudflare Worker (serves assets from R2)
-├── wrangler.toml           # Cloudflare deployment config
+├── .github/
+│   └── workflows/
+│       └── deploy.yml      # Automated GitHub Actions deployment workflow
+├── worker.js              # Cloudflare Worker script (URL rewriting + routing)
+├── wrangler.toml           # Cloudflare deployment & custom domain config
 ├── dev-server.py           # Local Python dev server
 ├── package.json
 └── assets/
     ├── index.html          # Main HTML entry point
     ├── css/                # Stylesheets
-    ├── js/                 # Patched Matterport Showcase JS
-    │   ├── showcase-internal.js  # Core 3D engine (patched)
-    │   ├── showcase.js           # Entry point (patched)
-    │   ├── 65.js                 # TiledPanoRenderer (patched)
-    │   ├── 321.js                # Camera start logic (patched)
-    │   └── *.js                  # Other chunk files
-    ├── webgl-vendors/      # Three.js + Draco/Basis decoders
-    ├── api/                # Cached API/GraphQL responses
-    ├── models/             # 3D mesh tiles, textures, panoramic tiles
-    ├── images/             # UI images
-    ├── fonts/              # Web fonts
-    └── locale/             # Localization strings
+    ├── js/                 # Patched Showcase 3D Engine JS
+    │   ├── showcase-internal.js  # Main engine logic
+    │   ├── 65.js                 # TiledPanoRenderer
+    │   └── 321.js                # Camera navigation
+    ├── webgl-vendors/      # Draco/Basis decoders
+    ├── api/                # Cached GraphQL & player API responses
+    └── models/             # 3D mesh tiles, textures, panoramic tiles
 ```
-
----
-
-## License
-
-This is a personal archive of a Matterport 3D tour. The Matterport Showcase engine is © Matterport, Inc.
